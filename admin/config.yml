@@ -1,1 +1,37 @@
+# This file configures Decap CMS for your site.
+
+# Backend Configuration (Crucial for Netlify)
+backend:
+  # Netlify Identity integration for authentication
+  name: git-gateway 
+  branch: main # Change this if your main branch is named differently (e.g., master)
+
+# Media Configuration (Where images/files go)
+media_folder: "assets/uploads" # Folder where uploaded media files will be stored
+public_folder: "/assets/uploads" # The same folder, publicly accessible URL
+
+# Collections (Your Content Types)
+collections:
+  - name: "posts" # Internal name of the collection
+    label: "Blog Posts" # Display name in the CMS UI
+    folder: "content/posts" # The directory where your markdown files will be saved
+    create: true # Allow users to create new posts
+    slug: "{{slug}}" # Use the title for the filename
+    fields:
+      - {label: "Title", name: "title", widget: "string", required: true}
+      - {label: "Publish Date", name: "date", widget: "datetime", required: true, date_format: "YYYY-MM-DD", time_format: "HH:mm"}
+      - {label: "Summary", name: "summary", widget: "text", required: true, hint: "A short, 1-2 sentence preview for the homepage."}
+      - {label: "Category", name: "category", widget: "select", options: ["Gaming", "TV/Film", "Personal", "Code"], default: "Personal"}
+      - {label: "Featured Image", name: "image", widget: "image", required: false, hint: "Optional image header for the post."}
+      - {label: "Body", name: "body", widget: "markdown", required: true}
+
+  - name: "gallery"
+    label: "Gallery Images"
+    folder: "content/gallery"
+    create: true
+    fields:
+      - {label: "Image Title", name: "title", widget: "string", required: true}
+      - {label: "Upload Date", name: "date", widget: "datetime", required: true}
+      - {label: "Image File", name: "image", widget: "image", required: true}
+      - {label: "Description", name: "description", widget: "text", required: false}
 
