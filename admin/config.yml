@@ -2,9 +2,12 @@
 
 # Backend Configuration (Crucial for Netlify)
 backend:
-  # Netlify Identity integration for authentication
-  name: git-gateway 
+  # Changed from 'git-gateway' to 'github' to support external OAuth providers like Auth0
+  name: github 
   branch: main # Change this if your main branch is named differently (e.g., master)
+  # !!! IMPORTANT: Replace these placeholders with your GitHub details !!!
+  repo: YOUR_GITHUB_USERNAME/YOUR_REPO_NAME 
+  auth_scope: repo # Required for the GitHub backend
 
 # Media Configuration (Where images/files go)
 media_folder: "assets/uploads" # Folder where uploaded media files will be stored
@@ -34,4 +37,3 @@ collections:
       - {label: "Upload Date", name: "date", widget: "datetime", required: true}
       - {label: "Image File", name: "image", widget: "image", required: true}
       - {label: "Description", name: "description", widget: "text", required: false}
-
