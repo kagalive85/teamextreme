@@ -3,247 +3,329 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team Extreme | Thoughts, TV, and PC Gaming</title>
+    <title>Team Extreme Blog</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Configure Tailwind for Inter font and custom colors -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        'primary': '#f87171', // Red-400, for a personal/passion feel
-                        'secondary': '#1e293b', // Slate-800
-                        'dark-bg': '#0f172a', // Slate-900
-                    }
-                }
-            }
-        }
-    </script>
+    <!-- Use Inter font -->
     <style>
-        /* Apply Inter font globally and ensure smooth scrolling for in-page navigation */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
         body {
             font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth;
+            background-color: #111827; /* Dark Gray (gray-900) */
         }
-        /* Custom card style for subtle interactivity */
-        .content-card {
-            transition: all 0.3s ease-in-out;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        /* Custom scrollbar for aesthetics on dark theme */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-thumb { background: #60a5fa; /* Blue-400 */ border-radius: 4px; }
+        ::-webkit-scrollbar-track { background: #374151; /* Gray-700 */ }
+
+        .post-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .content-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
-            border-color: #f87171; /* Highlight on hover */
+        .post-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 20px -5px rgba(0, 0, 0, 0.4), 0 6px 6px -3px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
-<body class="bg-dark-bg text-gray-100 min-h-screen">
+<body class="min-h-screen flex flex-col">
 
-    <!-- Feedback Message Box (Non-alert replacement) -->
-    <div id="feedback-message" class="fixed top-20 right-4 z-[100] p-4 bg-primary text-white rounded-lg shadow-xl hidden transition-opacity duration-300 opacity-0 max-w-xs md:max-w-sm" role="alert">
-        <!-- Content will be placed here by JavaScript -->
-    </div>
+    <!-- Header & Author Controls -->
+    <header class="bg-gray-900 shadow-xl sticky top-0 z-10 border-b border-blue-700/50">
+        <div class="max-w-4xl mx-auto p-4 flex justify-between items-center">
+            <!-- Updated Title -->
+            <h1 class="text-3xl font-bold text-gray-100 tracking-tight">
+                Team <span class="text-blue-400">Extreme</span>
+            </h1>
+            
+            <!-- Loading Indicator -->
+            <div id="loading-indicator" class="text-blue-400 font-medium hidden">Loading posts...</div>
 
-    <!-- Navigation Bar -->
-    <header class="sticky top-0 z-50 bg-dark-bg/95 backdrop-blur-md shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-            <!-- Logo -->
-            <a href="#" class="text-2xl font-bold text-primary tracking-wider mr-6">Team<span class="text-gray-300">Extreme</span></a>
-
-            <!-- Search Bar (Visible on all sizes, responsive width) -->
-            <div class="flex-1 relative flex items-center max-w-sm lg:max-w-lg mr-4">
-                <input id="searchInput" type="text" placeholder="Search games, guides, or thoughts..." 
-                       class="w-full py-2 pl-4 pr-10 bg-secondary border border-gray-700 rounded-xl text-gray-100 placeholder-gray-500 focus:outline-none focus:border-primary transition duration-150 text-sm"
-                       onkeydown="if(event.key === 'Enter') handleSearch()">
-                <button onclick="handleSearch()" class="absolute right-0 top-0 mt-2 mr-3 text-gray-500 hover:text-primary transition duration-150" aria-label="Search">
-                    <!-- Search Icon SVG -->
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
+            <!-- Author Controls -->
+            <div id="author-controls" class="hidden">
+                <button onclick="openModal()" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg shadow-lg transition duration-150 ease-in-out">
+                    + Add New Post
                 </button>
             </div>
-
-            <!-- Desktop Nav Links & Contact -->
-            <nav class="hidden md:flex items-center space-x-6">
-                <a href="#home" class="text-gray-300 hover:text-primary transition duration-150">Latest</a>
-                <a href="#content-types" class="text-gray-300 hover:text-primary transition duration-150">Categories</a>
-                <a href="#about" class="text-gray-300 hover:text-primary transition duration-150">About Me</a>
-                <a href="#contact" class="px-4 py-2 bg-primary text-white rounded-lg shadow-md hover:bg-red-600 transition duration-150">Contact</a>
-            </nav>
-
-            <!-- Mobile Menu Button (Hamburger Icon) - Only visible when links are hidden -->
-            <button class="md:hidden p-2 rounded-lg text-gray-300 hover:bg-secondary transition duration-150" aria-label="Toggle Menu">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-            </button>
+            
+            <div id="auth-status" class="text-sm text-gray-400 flex flex-col items-end">
+                <span id="user-id-display">Authenticating...</span>
+            </div>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="max-w-7xl mx-auto">
-
-        <!-- 1. Hero Section: Introduction and Latest Post Link -->
-        <section id="home" class="py-20 md:py-32 px-4 text-center">
-            <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-4">
-                Welcome to <span class="text-primary block md:inline">Team Extreme.</span>
-            </h1>
-            <p class="text-xl text-gray-400 mb-10 max-w-3xl mx-auto">
-                My personal hub for PC game reviews, detailed TV show guides, and unfiltered thoughts on technology and culture. Dive into the analysis.
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-4xl mx-auto py-8 px-4">
+        
+        <!-- Persistent Introduction Panel - UPDATED STYLING -->
+        <section class="mb-8 p-8 bg-gray-800 rounded-2xl shadow-2xl border-l-8 border-blue-500 transform transition duration-500 hover:shadow-blue-900/50">
+            <!-- Centered Heading: added justify-center and changed background to gray-800 for contrast -->
+            <h3 class="text-3xl font-extrabold text-blue-400 mb-3 tracking-wider flex items-center justify-center">
+                <span class="mr-3 text-4xl">🎬</span> Welcome to Team Extreme!
+            </h3>
+            <p class="text-gray-200 leading-relaxed text-lg">
+                Welcome to the **ultimate archive for British comedy fanatics**. **Team Extreme** is dedicated to providing **complete and comprehensive guides** to the greatest sitcoms produced between the **1960s and the 1990s**. From the humble beginnings of telly gold to the iconic classics that defined a generation, dive in with us as we revisit every episode, every catchphrase, and every moment of genius. Prepare for a deep dive into the history of UK comedy!
             </p>
-            <div class="space-x-4">
-                <a href="#" class="inline-block px-8 py-3 bg-primary text-white text-lg font-semibold rounded-xl shadow-2xl shadow-primary/50 hover:bg-red-600 transition duration-300 transform hover:scale-105">
-                    Read Latest Post
-                </a>
-                <a href="#content-types" class="inline-block px-8 py-3 text-lg font-semibold border-2 border-gray-500 text-gray-300 rounded-xl hover:bg-gray-700 transition duration-300">
-                    Browse Categories
-                </a>
-            </div>
-        </section>
-
-        <!-- Separator with Placeholder for Content Spotlight -->
-        <div class="px-4 pb-16">
-            <div class="h-48 bg-secondary rounded-3xl flex items-center justify-center border border-gray-700 shadow-xl">
-                <p class="text-gray-500 text-lg">Spotlight: Latest Game Review or TV Guide Thumbnail</p>
-            </div>
-        </div>
-
-        <!-- 2. Content Types Section -->
-        <section id="content-types" class="py-16 md:py-24 px-4 bg-secondary rounded-t-[3rem]">
-            <h2 class="text-4xl md:text-5xl font-bold text-center mb-4">Content Categories</h2>
-            <p class="text-lg text-gray-400 text-center mb-16 max-w-2xl mx-auto">
-                No matter your interest—gaming, television, or tech—you'll find in-depth commentary here.
-            </p>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Content Card 1: PC Game Reviews -->
-                <div class="content-card bg-slate-800 p-8 rounded-2xl border-2 border-transparent hover:border-primary">
-                    <div class="text-primary mb-4">
-                        <!-- Gamepad Icon -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M14 2h-4C7.79 2 6 3.79 6 6v4H4c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h2v4c0 2.21 1.79 4 4 4h4c2.21 0 4-1.79 4-4v-4h2c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2h-2V6c0-2.21-1.79-4-4-4z" />
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-semibold mb-3 text-white">PC Game Reviews</h3>
-                    <p class="text-gray-400">Deep dives into the latest AAA titles and hidden indie gems. Honest critiques on gameplay, story, and performance.</p>
-                </div>
-
-                <!-- Content Card 2: TV Guides & Analysis -->
-                <div class="content-card bg-slate-800 p-8 rounded-2xl border-2 border-transparent hover:border-primary">
-                    <div class="text-primary mb-4">
-                        <!-- TV/Screen Icon -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="2" y="7" width="20" height="15" rx="2" ry="2" />
-                            <polyline points="17 2 12 7 7 2" />
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-semibold mb-3 text-white">TV Guides & Analysis</h3>
-                    <p class="text-gray-400">Episode breakdowns, character deep dives, and speculation for your favorite shows. Never miss a detail.</p>
-                </div>
-
-                <!-- Content Card 3: Personal Thoughts & Tech Blog -->
-                <div class="content-card bg-slate-800 p-8 rounded-2xl border-2 border-transparent hover:border-primary">
-                    <div class="text-primary mb-4">
-                        <!-- Lightbulb/Idea Icon -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-semibold mb-3 text-white">Thoughts & Technology</h3>
-                    <p class="text-gray-400">Unfiltered opinions on current events, technology trends, personal projects, and the occasional rant.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- 3. About Section (Author Introduction) -->
-        <section id="about" class="py-16 md:py-24 px-4">
-            <div class="md:grid md:grid-cols-2 md:gap-12 items-center">
-                <div class="mb-8 md:mb-0">
-                    <h2 class="text-4xl font-bold mb-4">About Me (The Lens)</h2>
-                    <p class="text-lg text-gray-400 mb-6">
-                        Hi, I'm the curator behind **Team Extreme**! This space is my digital sandbox where I share my passions—from dissecting complex TV plotlines to figuring out the best build for a new RPG. I write for fellow enthusiasts who love detail and a good conversation.
-                    </p>
-                    <p class="text-lg text-gray-400 mb-6">
-                        My goal is to provide honest, in-depth content that you can't find everywhere else. Thanks for reading!
-                    </p>
-                    <a href="mailto:author@digitallens.com" class="inline-block px-6 py-3 border border-primary text-primary font-semibold rounded-lg hover:bg-primary hover:text-white transition duration-200">
-                        Say Hello
-                    </a>
-                </div>
-                <div class="h-64 bg-secondary rounded-2xl border border-gray-700 flex items-center justify-center">
-                    <p class="text-gray-500">Placeholder for Author Photo / Personal Avatar</p>
-                </div>
-            </div>
         </section>
         
-        <!-- 4. Contact/Follow CTA -->
-        <section id="contact" class="py-16 px-4 bg-primary/10 rounded-3xl mb-12">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-3">Don't Miss the Next Post.</h2>
-                <p class="text-xl text-gray-300 mb-8">
-                    Follow along for regular updates on games, shows, and technology.
-                </p>
-                <a href="#" class="inline-block px-10 py-4 bg-primary text-white text-xl font-bold rounded-xl shadow-2xl shadow-primary/50 hover:bg-red-600 transition duration-300 transform hover:scale-105">
-                    Dive into the Content
-                </a>
-            </div>
-        </section>
-
+        <h2 class="text-2xl font-semibold text-gray-100 mb-6 border-b border-gray-700 pb-2">Latest Entries</h2>
+        
+        <!-- Blog Posts Container -->
+        <div id="posts-container" class="space-y-6">
+            <!-- Posts will be injected here by JavaScript -->
+            <p id="no-posts-message" class="text-gray-400 text-center py-10 hidden">
+                It looks a little empty here! As the author, you can add the first post.
+            </p>
+        </div>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-secondary/50 border-t border-gray-800 py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-400">
-            <nav class="space-x-6 mb-4">
-                <a href="#" class="hover:text-primary transition duration-150">Archives</a>
-                <a href="#" class="hover:text-primary transition duration-150">Contact</a>
-                <a href="#" class="hover:text-primary transition duration-150">Privacy</a>
-            </nav>
-            <p>&copy; <span id="year"></span> Team Extreme. All rights reserved.</p>
+    <footer class="bg-gray-900 text-gray-400 p-4 mt-auto border-t border-blue-700/50">
+        <div class="max-w-4xl mx-auto text-center text-sm">
+            &copy; <span id="current-year"></span> Team Extreme. Hosted on Netlify.
         </div>
     </footer>
 
-    <script>
-        // Get the current year for the footer copyright
-        document.getElementById('year').textContent = new Date().getFullYear();
+    <!-- Add New Post Modal (Hidden by default) -->
+    <div id="post-modal" class="fixed inset-0 bg-gray-900 bg-opacity-80 flex items-center justify-center hidden z-20" onclick="closeModal(event)">
+        <div class="bg-gray-800 p-6 rounded-xl shadow-2xl w-full max-w-md m-4 border border-blue-700/50" onclick="event.stopPropagation()">
+            <h3 class="text-xl font-bold mb-4 text-gray-100">Create New Post</h3>
+            <form id="new-post-form" onsubmit="handlePostSubmit(event)">
+                <div class="mb-4">
+                    <label for="post-title" class="block text-sm font-medium text-gray-300 mb-1">Title</label>
+                    <input type="text" id="post-title" required class="w-full px-3 py-2 border border-gray-600 bg-gray-700 text-white rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label for="post-content" class="block text-sm font-medium text-gray-300 mb-1">Content</label>
+                    <textarea id="post-content" rows="6" required class="w-full px-3 py-2 border border-gray-600 bg-gray-700 text-white rounded-lg focus:ring-blue-500 focus:border-blue-500"></textarea>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button type="button" onclick="closeModal()" class="px-4 py-2 text-sm font-medium text-gray-200 bg-gray-700 rounded-lg hover:bg-gray-600 transition duration-150">
+                        Cancel
+                    </button>
+                    <button type="submit" id="submit-post-btn" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-500 transition duration-150">
+                        Publish Post
+                    </button>
+                </div>
+            </form>
+            <p id="error-message" class="text-red-400 text-sm mt-3 hidden"></p>
+        </div>
+    </div>
 
+    <!-- Firebase Initialization and Logic -->
+    <script type="module">
+        // Import Firebase modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        import { getFirestore, collection, addDoc, query, onSnapshot, getDocs, doc, setLogLevel, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-        // Utility function to display a custom feedback message (replaces alert())
-        function showFeedback(message) {
-            const feedbackBox = document.getElementById('feedback-message');
-            feedbackBox.textContent = message;
-            
-            // Show the box with transition
-            feedbackBox.classList.remove('hidden', 'opacity-0');
-            feedbackBox.classList.add('opacity-100');
+        // Global variables provided by the environment
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 
-            setTimeout(() => {
-                // Start fade out
-                feedbackBox.classList.remove('opacity-100');
-                feedbackBox.classList.add('opacity-0');
-                
-                // Hide completely after fade out transition
-                setTimeout(() => {
-                    feedbackBox.classList.add('hidden');
-                }, 300); 
-            }, 2500);
-        }
+        // Firestore paths
+        const PUBLIC_DATA_PATH = `/artifacts/${appId}/public/data`;
+        const POSTS_COLLECTION_NAME = 'blog_posts';
+        
+        let app, db, auth;
+        let userId = null;
+        let isAuthReady = false;
 
-        // Placeholder function for search logic
-        function handleSearch() {
-            const searchTerm = document.getElementById('searchInput').value.trim();
-            if (searchTerm) {
-                // In a real application, this is where you would filter content or call an API.
-                showFeedback(`Simulating search for: "${searchTerm}"...`);
-                document.getElementById('searchInput').value = ''; // Clear input
-            } else {
-                showFeedback("Please enter a search term before pressing enter.");
+        setLogLevel('debug'); // Enable detailed Firebase logging
+
+        // --- Utility Functions ---
+
+        /** Formats Firestore Timestamp object into a readable date string. */
+        const formatDate = (timestamp) => {
+            if (!timestamp) return 'No Date';
+            if (timestamp.toDate) {
+                return timestamp.toDate().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
             }
-        }
+            // Fallback for JS Date object or serverTimestamp placeholder
+            return new Date(timestamp).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        };
+
+        /** Renders a single post card element. */
+        const renderPost = (post) => {
+            const postElement = document.createElement('div');
+            // Updated classes for dark theme: bg-gray-800, light text, blue accent border
+            postElement.className = 'post-card bg-gray-800 p-6 rounded-xl shadow-xl border border-blue-700/50'; 
+            postElement.innerHTML = `
+                <h3 class="text-xl font-bold text-gray-50 mb-2">${post.title}</h3>
+                <p class="text-sm text-gray-400 mb-4">
+                    By <span class="font-medium text-blue-400">${post.author || 'The Host'}</span> on ${formatDate(post.timestamp)}
+                </p>
+                <div class="text-gray-200 whitespace-pre-wrap">${post.content}</div>
+            `;
+            return postElement;
+        };
+
+        /** Renders all posts to the container. */
+        const renderPosts = (posts) => {
+            const container = document.getElementById('posts-container');
+            const noPostsMessage = document.getElementById('no-posts-message');
+            container.innerHTML = ''; // Clear previous posts
+
+            if (posts.length === 0) {
+                noPostsMessage.classList.remove('hidden');
+                return;
+            }
+            noPostsMessage.classList.add('hidden');
+
+            // Sort posts by timestamp in descending order (newest first)
+            const sortedPosts = posts.sort((a, b) => {
+                const timeA = a.timestamp && a.timestamp.toDate ? a.timestamp.toDate().getTime() : 0;
+                const timeB = b.timestamp && b.timestamp.toDate ? b.timestamp.toDate().getTime() : 0;
+                return timeB - timeA;
+            });
+
+            sortedPosts.forEach(post => {
+                container.appendChild(renderPost(post));
+            });
+        };
+
+        // --- Firebase Core Logic ---
+
+        const initFirebase = async () => {
+            try {
+                if (Object.keys(firebaseConfig).length === 0) {
+                     console.error("Firebase config is missing or empty.");
+                     return;
+                }
+                app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+                
+                // 1. Perform and AWAIT Initial Sign-In (Guarantees request.auth != null before listener starts)
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken); 
+                } else {
+                    // If no token, sign in anonymously to ensure permissions for public read access
+                    await signInAnonymously(auth);
+                }
+
+                // 2. Set user details and update UI status
+                const user = auth.currentUser;
+                if (user) {
+                    userId = user.uid;
+                    document.getElementById('user-id-display').textContent = `User ID: ${userId.substring(0, 8)}...`;
+                    
+                    // Show author controls only if signed in with the special token
+                    if (initialAuthToken) {
+                        document.getElementById('author-controls').classList.remove('hidden');
+                    }
+                } else {
+                    // Fallback should not happen if sign-in succeeded
+                    userId = 'guest';
+                    document.getElementById('user-id-display').textContent = `User ID: ${userId.substring(0, 8)}... (Guest)`;
+                }
+
+                // 3. Start Real-time Listener only AFTER auth is confirmed and userId is set
+                isAuthReady = true;
+                startRealtimeListener();
+
+            } catch (error) {
+                console.error("Error initializing Firebase or signing in:", error);
+                document.getElementById('user-id-display').textContent = 'Error during auth.';
+            }
+        };
+        
+        const startRealtimeListener = () => {
+            if (!db || !isAuthReady) {
+                console.warn("Database or Auth not ready, skipping listener setup.");
+                return;
+            }
+
+            const postsRef = collection(db, PUBLIC_DATA_PATH, POSTS_COLLECTION_NAME);
+            const q = query(postsRef);
+
+            // Use onSnapshot for real-time updates
+            const unsubscribe = onSnapshot(q, (snapshot) => {
+                document.getElementById('loading-indicator').classList.add('hidden');
+                const posts = [];
+                snapshot.forEach((doc) => {
+                    posts.push({ id: doc.id, ...doc.data() });
+                });
+                renderPosts(posts);
+            }, (error) => {
+                console.error("Error fetching real-time posts:", error);
+                document.getElementById('loading-indicator').textContent = 'Error loading posts.';
+            });
+
+            // Clean up listener when app closes (good practice)
+            window.addEventListener('beforeunload', unsubscribe);
+        };
+        
+        /** Handles the submission of a new post to Firestore. */
+        window.handlePostSubmit = async (event) => {
+            event.preventDefault();
+            const titleInput = document.getElementById('post-title');
+            const contentInput = document.getElementById('post-content');
+            const submitBtn = document.getElementById('submit-post-btn');
+            const errorMessage = document.getElementById('error-message');
+
+            const title = titleInput.value.trim();
+            const content = contentInput.value.trim();
+            const author = userId; // Store the current user's ID as the author identifier
+
+            if (!title || !content || !db) {
+                errorMessage.textContent = 'Please fill out all fields.';
+                errorMessage.classList.remove('hidden');
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Publishing...';
+            errorMessage.classList.add('hidden');
+
+            try {
+                const postsRef = collection(db, PUBLIC_DATA_PATH, POSTS_COLLECTION_NAME);
+                
+                await addDoc(postsRef, {
+                    title: title,
+                    content: content,
+                    author: author,
+                    timestamp: serverTimestamp()
+                });
+
+                // Clear form and close modal on success
+                titleInput.value = '';
+                contentInput.value = '';
+                closeModal();
+
+            } catch (error) {
+                console.error("Error adding document:", error);
+                errorMessage.textContent = `Failed to publish post: ${error.message}`;
+                errorMessage.classList.remove('hidden');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Publish Post';
+            }
+        };
+
+        // --- Modal Control Functions ---
+
+        window.openModal = () => {
+            document.getElementById('post-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+        };
+
+        window.closeModal = (event) => {
+            // Only close if click is on the modal background, or if manually called
+            if (!event || event.target.id === 'post-modal') {
+                document.getElementById('post-modal').classList.add('hidden');
+                document.getElementById('error-message').classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        };
+
+        // --- Initial Setup ---
+        window.onload = () => {
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+            document.getElementById('loading-indicator').classList.remove('hidden');
+            initFirebase();
+        };
+
     </script>
 </body>
 </html>
