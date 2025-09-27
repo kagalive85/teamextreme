@@ -1,5 +1,5 @@
 {
-  "name": "Aura Media Uploader",
-  "description": "A modern, responsive web application to upload audio and video files, featuring switchable light and dark themes for a unique user experience.",
+  "name": "Media Upload Showcase",
+  "description": "A visually appealing landing page for a future media upload application, designed with a modern aesthetic using React and Tailwind CSS.",
   "requestFramePermissions": []
 }
