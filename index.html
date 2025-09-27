@@ -3,329 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team Extreme Blog</title>
+    <title>Team Extreme | 60s-90s British Comedy</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Use Inter font -->
     <style>
+        /* Custom font import for a clean look */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #111827; /* Dark Gray (gray-900) */
+            /* Ensure the body covers the full height of the viewport */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
-        /* Custom scrollbar for aesthetics on dark theme */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-thumb { background: #60a5fa; /* Blue-400 */ border-radius: 4px; }
-        ::-webkit-scrollbar-track { background: #374151; /* Gray-700 */ }
 
-        .post-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .post-card:hover {
+        /* Styling for the accent hover effect */
+        .card-link:hover {
             transform: translateY(-4px);
-            box-shadow: 0 15px 20px -5px rgba(0, 0, 0, 0.4), 0 6px 6px -3px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.5), 0 4px 6px -2px rgba(59, 130, 246, 0.05); /* Blue glow effect */
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body class="bg-gray-900 text-gray-100 antialiased">
 
-    <!-- Header & Author Controls -->
-    <header class="bg-gray-900 shadow-xl sticky top-0 z-10 border-b border-blue-700/50">
-        <div class="max-w-4xl mx-auto p-4 flex justify-between items-center">
-            <!-- Updated Title -->
-            <h1 class="text-3xl font-bold text-gray-100 tracking-tight">
-                Team <span class="text-blue-400">Extreme</span>
+    <!-- Header and Navigation -->
+    <header class="bg-gray-800 shadow-lg p-4 md:p-6 sticky top-0 z-10 border-b border-sky-700/50">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <!-- Logo/Site Title - UPDATED TO TEAM EXTREME -->
+            <h1 class="text-2xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-indigo-500">
+                Team Extreme
             </h1>
-            
-            <!-- Loading Indicator -->
-            <div id="loading-indicator" class="text-blue-400 font-medium hidden">Loading posts...</div>
-
-            <!-- Author Controls -->
-            <div id="author-controls" class="hidden">
-                <button onclick="openModal()" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg shadow-lg transition duration-150 ease-in-out">
-                    + Add New Post
-                </button>
-            </div>
-            
-            <div id="auth-status" class="text-sm text-gray-400 flex flex-col items-end">
-                <span id="user-id-display">Authenticating...</span>
-            </div>
+            <!-- Nav Links (Desktop) -->
+            <nav class="hidden md:flex space-x-6">
+                <a href="#home" class="text-gray-300 hover:text-sky-400 transition duration-300 font-medium">Home</a>
+                <a href="#blog" class="text-gray-300 hover:text-sky-400 transition duration-300 font-medium">Blog</a>
+                <a href="#guides" class="text-gray-300 hover:text-sky-400 transition duration-300 font-medium">Episode Guides</a>
+                <a href="#contact" class="text-gray-300 hover:text-sky-400 transition duration-300 font-medium">Contact</a>
+            </nav>
         </div>
     </header>
 
     <!-- Main Content Area -->
-    <main class="flex-grow max-w-4xl mx-auto py-8 px-4">
+    <main class="flex-grow container mx-auto p-4 md:p-8">
         
-        <!-- Persistent Introduction Panel - UPDATED STYLING -->
-        <section class="mb-8 p-8 bg-gray-800 rounded-2xl shadow-2xl border-l-8 border-blue-500 transform transition duration-500 hover:shadow-blue-900/50">
-            <!-- Centered Heading: added justify-center and changed background to gray-800 for contrast -->
-            <h3 class="text-3xl font-extrabold text-blue-400 mb-3 tracking-wider flex items-center justify-center">
-                <span class="mr-3 text-4xl">🎬</span> Welcome to Team Extreme!
-            </h3>
-            <p class="text-gray-200 leading-relaxed text-lg">
-                Welcome to the **ultimate archive for British comedy fanatics**. **Team Extreme** is dedicated to providing **complete and comprehensive guides** to the greatest sitcoms produced between the **1960s and the 1990s**. From the humble beginnings of telly gold to the iconic classics that defined a generation, dive in with us as we revisit every episode, every catchphrase, and every moment of genius. Prepare for a deep dive into the history of UK comedy!
+        <!-- Hero Section -->
+        <section class="text-center py-12 md:py-20">
+            <h2 class="text-5xl md:text-7xl font-bold mb-4 tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-gray-50 to-sky-300">
+                The Golden Age of British Comedy
+            </h2>
+            <p class="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-10">
+                Dive into decades of classic laughs. From the gritty 60s to the glorious 90s, explore episode guides, analysis, and reviews of Britain's most beloved sitcoms.
             </p>
+            
+            <!-- Key Action Links (Cards) -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-5xl mx-auto">
+                
+                <!-- Blog Link Card -->
+                <a href="#blog" class="card-link block p-8 bg-gray-800 rounded-xl border-2 border-transparent hover:border-sky-500/80 transition duration-300 shadow-2xl">
+                    <div class="flex flex-col items-start text-left">
+                        <span class="text-4xl text-sky-400 mb-4">✍️</span>
+                        <h3 class="text-3xl font-semibold mb-2 text-sky-300">Read the Blog</h3>
+                        <p class="text-gray-400">
+                            Discover in-depth analysis, trivia, and personal reflections on characters, writing, and the cultural impact of classic British humor.
+                        </p>
+                        <span class="mt-4 text-sky-400 font-bold flex items-center">
+                            Start Reading
+                            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Guides Link Card -->
+                <a href="#guides" class="card-link block p-8 bg-gray-800 rounded-xl border-2 border-transparent hover:border-indigo-500/80 transition duration-300 shadow-2xl">
+                    <div class="flex flex-col items-start text-left">
+                        <span class="text-4xl text-indigo-400 mb-4">📺</span>
+                        <h3 class="text-3xl font-semibold mb-2 text-indigo-300">Episode Guides</h3>
+                        <p class="text-gray-400">
+                            Comprehensive lists, synopses, and production notes for your favorite shows from the 1960s to the 1990s. Never miss a detail!
+                        </p>
+                        <span class="mt-4 text-indigo-400 font-bold flex items-center">
+                            Browse Guides
+                            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </span>
+                    </div>
+                </a>
+            </div>
         </section>
-        
-        <h2 class="text-2xl font-semibold text-gray-100 mb-6 border-b border-gray-700 pb-2">Latest Entries</h2>
-        
-        <!-- Blog Posts Container -->
-        <div id="posts-container" class="space-y-6">
-            <!-- Posts will be injected here by JavaScript -->
-            <p id="no-posts-message" class="text-gray-400 text-center py-10 hidden">
-                It looks a little empty here! As the author, you can add the first post.
-            </p>
-        </div>
+
+        <!-- Featured Sitcoms Section -->
+        <section class="py-12 md:py-16">
+            <h3 class="text-4xl font-bold text-center mb-10 border-b-2 border-gray-700/50 pb-4 max-w-xl mx-auto text-gray-200">
+                Sitcoms We Cover
+            </h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 text-center max-w-6xl mx-auto">
+                
+                <!-- Sitcom 1: Keeping Up Appearances -->
+                <div class="p-4 bg-gray-800/50 rounded-lg transition hover:bg-sky-900/40">
+                    <p class="text-2xl mb-1">👑</p>
+                    <p class="text-sm font-semibold text-gray-200">Keeping Up Appearances</p>
+                    <p class="text-xs text-sky-500">1990-1995</p>
+                </div>
+                
+                <!-- Sitcom 2: On the Buses -->
+                <div class="p-4 bg-gray-800/50 rounded-lg transition hover:bg-indigo-900/40">
+                    <p class="text-2xl mb-1">🚌</p>
+                    <p class="text-sm font-semibold text-gray-200">On the Buses</p>
+                    <p class="text-xs text-indigo-500">1969-1973</p>
+                </div>
+                
+                <!-- Sitcom 3: Last of the Summer Wine -->
+                <div class="p-4 bg-gray-800/50 rounded-lg transition hover:bg-sky-900/40">
+                    <p class="text-2xl mb-1">🏞️</p>
+                    <p class="text-sm font-semibold text-gray-200">Last of the Summer Wine</p>
+                    <p class="text-xs text-sky-500">1973-2010</p>
+                </div>
+                
+                <!-- Sitcom 4: Fawlty Towers -->
+                <div class="p-4 bg-gray-800/50 rounded-lg transition hover:bg-indigo-900/40">
+                    <p class="text-2xl mb-1">🛎️</p>
+                    <p class="text-sm font-semibold text-gray-200">Fawlty Towers</p>
+                    <p class="text-xs text-indigo-500">1975-1979</p>
+                </div>
+
+                <!-- Sitcom 5: Only Fools and Horses -->
+                <div class="p-4 bg-gray-800/50 rounded-lg transition hover:bg-sky-900/40">
+                    <p class="text-2xl mb-1">📦</p>
+                    <p class="text-sm font-semibold text-gray-200">Only Fools and Horses</p>
+                    <p class="text-xs text-sky-500">1981-2003</p>
+                </div>
+
+                <!-- Sitcom 6: Dad's Army -->
+                <div class="p-4 bg-gray-800/50 rounded-lg transition hover:bg-indigo-900/40">
+                    <p class="text-2xl mb-1">💂</p>
+                    <p class="text-sm font-semibold text-gray-200">Dad's Army</p>
+                    <p class="text-xs text-indigo-500">1968-1977</p>
+                </div>
+
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#guides" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-full text-white bg-sky-600 hover:bg-sky-700 md:py-4 md:text-lg md:px-10 shadow-lg transition duration-300 transform hover:scale-[1.02]">
+                    View All Guides
+                </a>
+            </div>
+
+        </section>
+
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-400 p-4 mt-auto border-t border-blue-700/50">
-        <div class="max-w-4xl mx-auto text-center text-sm">
-            &copy; <span id="current-year"></span> Team Extreme. Hosted on Netlify.
+    <!-- Footer - UPDATED COPYRIGHT AND ADDED GEMINI ACKNOWLEDGMENT -->
+    <footer class="mt-auto bg-gray-800 p-6 border-t border-sky-700/50">
+        <div class="container mx-auto text-center text-gray-400 text-sm">
+            <p>&copy; 2025 Team Extreme. All rights reserved.</p>
+            <p class="mt-2">Dedicated to the best of 60s, 70s, 80s, and 90s British Comedy.</p>
+            <p class="mt-2 text-sky-400 font-medium">Designed with the help of Google Gemini!</p>
         </div>
     </footer>
 
-    <!-- Add New Post Modal (Hidden by default) -->
-    <div id="post-modal" class="fixed inset-0 bg-gray-900 bg-opacity-80 flex items-center justify-center hidden z-20" onclick="closeModal(event)">
-        <div class="bg-gray-800 p-6 rounded-xl shadow-2xl w-full max-w-md m-4 border border-blue-700/50" onclick="event.stopPropagation()">
-            <h3 class="text-xl font-bold mb-4 text-gray-100">Create New Post</h3>
-            <form id="new-post-form" onsubmit="handlePostSubmit(event)">
-                <div class="mb-4">
-                    <label for="post-title" class="block text-sm font-medium text-gray-300 mb-1">Title</label>
-                    <input type="text" id="post-title" required class="w-full px-3 py-2 border border-gray-600 bg-gray-700 text-white rounded-lg focus:ring-blue-500 focus:border-blue-500">
-                </div>
-                <div class="mb-4">
-                    <label for="post-content" class="block text-sm font-medium text-gray-300 mb-1">Content</label>
-                    <textarea id="post-content" rows="6" required class="w-full px-3 py-2 border border-gray-600 bg-gray-700 text-white rounded-lg focus:ring-blue-500 focus:border-blue-500"></textarea>
-                </div>
-                <div class="flex justify-end space-x-3">
-                    <button type="button" onclick="closeModal()" class="px-4 py-2 text-sm font-medium text-gray-200 bg-gray-700 rounded-lg hover:bg-gray-600 transition duration-150">
-                        Cancel
-                    </button>
-                    <button type="submit" id="submit-post-btn" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-500 transition duration-150">
-                        Publish Post
-                    </button>
-                </div>
-            </form>
-            <p id="error-message" class="text-red-400 text-sm mt-3 hidden"></p>
-        </div>
-    </div>
-
-    <!-- Firebase Initialization and Logic -->
-    <script type="module">
-        // Import Firebase modules
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-        import { getFirestore, collection, addDoc, query, onSnapshot, getDocs, doc, setLogLevel, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-        // Global variables provided by the environment
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-
-        // Firestore paths
-        const PUBLIC_DATA_PATH = `/artifacts/${appId}/public/data`;
-        const POSTS_COLLECTION_NAME = 'blog_posts';
-        
-        let app, db, auth;
-        let userId = null;
-        let isAuthReady = false;
-
-        setLogLevel('debug'); // Enable detailed Firebase logging
-
-        // --- Utility Functions ---
-
-        /** Formats Firestore Timestamp object into a readable date string. */
-        const formatDate = (timestamp) => {
-            if (!timestamp) return 'No Date';
-            if (timestamp.toDate) {
-                return timestamp.toDate().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-            }
-            // Fallback for JS Date object or serverTimestamp placeholder
-            return new Date(timestamp).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-        };
-
-        /** Renders a single post card element. */
-        const renderPost = (post) => {
-            const postElement = document.createElement('div');
-            // Updated classes for dark theme: bg-gray-800, light text, blue accent border
-            postElement.className = 'post-card bg-gray-800 p-6 rounded-xl shadow-xl border border-blue-700/50'; 
-            postElement.innerHTML = `
-                <h3 class="text-xl font-bold text-gray-50 mb-2">${post.title}</h3>
-                <p class="text-sm text-gray-400 mb-4">
-                    By <span class="font-medium text-blue-400">${post.author || 'The Host'}</span> on ${formatDate(post.timestamp)}
-                </p>
-                <div class="text-gray-200 whitespace-pre-wrap">${post.content}</div>
-            `;
-            return postElement;
-        };
-
-        /** Renders all posts to the container. */
-        const renderPosts = (posts) => {
-            const container = document.getElementById('posts-container');
-            const noPostsMessage = document.getElementById('no-posts-message');
-            container.innerHTML = ''; // Clear previous posts
-
-            if (posts.length === 0) {
-                noPostsMessage.classList.remove('hidden');
-                return;
-            }
-            noPostsMessage.classList.add('hidden');
-
-            // Sort posts by timestamp in descending order (newest first)
-            const sortedPosts = posts.sort((a, b) => {
-                const timeA = a.timestamp && a.timestamp.toDate ? a.timestamp.toDate().getTime() : 0;
-                const timeB = b.timestamp && b.timestamp.toDate ? b.timestamp.toDate().getTime() : 0;
-                return timeB - timeA;
-            });
-
-            sortedPosts.forEach(post => {
-                container.appendChild(renderPost(post));
-            });
-        };
-
-        // --- Firebase Core Logic ---
-
-        const initFirebase = async () => {
-            try {
-                if (Object.keys(firebaseConfig).length === 0) {
-                     console.error("Firebase config is missing or empty.");
-                     return;
-                }
-                app = initializeApp(firebaseConfig);
-                db = getFirestore(app);
-                auth = getAuth(app);
-                
-                // 1. Perform and AWAIT Initial Sign-In (Guarantees request.auth != null before listener starts)
-                if (initialAuthToken) {
-                    await signInWithCustomToken(auth, initialAuthToken); 
-                } else {
-                    // If no token, sign in anonymously to ensure permissions for public read access
-                    await signInAnonymously(auth);
-                }
-
-                // 2. Set user details and update UI status
-                const user = auth.currentUser;
-                if (user) {
-                    userId = user.uid;
-                    document.getElementById('user-id-display').textContent = `User ID: ${userId.substring(0, 8)}...`;
-                    
-                    // Show author controls only if signed in with the special token
-                    if (initialAuthToken) {
-                        document.getElementById('author-controls').classList.remove('hidden');
-                    }
-                } else {
-                    // Fallback should not happen if sign-in succeeded
-                    userId = 'guest';
-                    document.getElementById('user-id-display').textContent = `User ID: ${userId.substring(0, 8)}... (Guest)`;
-                }
-
-                // 3. Start Real-time Listener only AFTER auth is confirmed and userId is set
-                isAuthReady = true;
-                startRealtimeListener();
-
-            } catch (error) {
-                console.error("Error initializing Firebase or signing in:", error);
-                document.getElementById('user-id-display').textContent = 'Error during auth.';
-            }
-        };
-        
-        const startRealtimeListener = () => {
-            if (!db || !isAuthReady) {
-                console.warn("Database or Auth not ready, skipping listener setup.");
-                return;
-            }
-
-            const postsRef = collection(db, PUBLIC_DATA_PATH, POSTS_COLLECTION_NAME);
-            const q = query(postsRef);
-
-            // Use onSnapshot for real-time updates
-            const unsubscribe = onSnapshot(q, (snapshot) => {
-                document.getElementById('loading-indicator').classList.add('hidden');
-                const posts = [];
-                snapshot.forEach((doc) => {
-                    posts.push({ id: doc.id, ...doc.data() });
-                });
-                renderPosts(posts);
-            }, (error) => {
-                console.error("Error fetching real-time posts:", error);
-                document.getElementById('loading-indicator').textContent = 'Error loading posts.';
-            });
-
-            // Clean up listener when app closes (good practice)
-            window.addEventListener('beforeunload', unsubscribe);
-        };
-        
-        /** Handles the submission of a new post to Firestore. */
-        window.handlePostSubmit = async (event) => {
-            event.preventDefault();
-            const titleInput = document.getElementById('post-title');
-            const contentInput = document.getElementById('post-content');
-            const submitBtn = document.getElementById('submit-post-btn');
-            const errorMessage = document.getElementById('error-message');
-
-            const title = titleInput.value.trim();
-            const content = contentInput.value.trim();
-            const author = userId; // Store the current user's ID as the author identifier
-
-            if (!title || !content || !db) {
-                errorMessage.textContent = 'Please fill out all fields.';
-                errorMessage.classList.remove('hidden');
-                return;
-            }
-
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Publishing...';
-            errorMessage.classList.add('hidden');
-
-            try {
-                const postsRef = collection(db, PUBLIC_DATA_PATH, POSTS_COLLECTION_NAME);
-                
-                await addDoc(postsRef, {
-                    title: title,
-                    content: content,
-                    author: author,
-                    timestamp: serverTimestamp()
-                });
-
-                // Clear form and close modal on success
-                titleInput.value = '';
-                contentInput.value = '';
-                closeModal();
-
-            } catch (error) {
-                console.error("Error adding document:", error);
-                errorMessage.textContent = `Failed to publish post: ${error.message}`;
-                errorMessage.classList.remove('hidden');
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Publish Post';
-            }
-        };
-
-        // --- Modal Control Functions ---
-
-        window.openModal = () => {
-            document.getElementById('post-modal').classList.remove('hidden');
-            document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
-        };
-
-        window.closeModal = (event) => {
-            // Only close if click is on the modal background, or if manually called
-            if (!event || event.target.id === 'post-modal') {
-                document.getElementById('post-modal').classList.add('hidden');
-                document.getElementById('error-message').classList.add('hidden');
-                document.body.style.overflow = '';
-            }
-        };
-
-        // --- Initial Setup ---
-        window.onload = () => {
-            document.getElementById('current-year').textContent = new Date().getFullYear();
-            document.getElementById('loading-indicator').classList.remove('hidden');
-            initFirebase();
-        };
-
+    <!-- Simple JavaScript to demonstrate a basic interaction (optional) -->
+    <script>
+        // Placeholder JavaScript for future interaction or features
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("Team Extreme website loaded successfully!");
+        });
     </script>
+
 </body>
 </html>
