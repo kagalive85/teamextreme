@@ -1,0 +1,5 @@
+{
+  "name": "Aura Media Uploader",
+  "description": "A modern, responsive web application to upload audio and video files, featuring switchable light and dark themes for a unique user experience.",
+  "requestFramePermissions": []
+}
