@@ -43,21 +43,39 @@
 </head>
 <body class="bg-dark-bg text-gray-100 min-h-screen">
 
+    <!-- Feedback Message Box (Non-alert replacement) -->
+    <div id="feedback-message" class="fixed top-20 right-4 z-[100] p-4 bg-primary text-white rounded-lg shadow-xl hidden transition-opacity duration-300 opacity-0 max-w-xs md:max-w-sm" role="alert">
+        <!-- Content will be placed here by JavaScript -->
+    </div>
+
     <!-- Navigation Bar -->
     <header class="sticky top-0 z-50 bg-dark-bg/95 backdrop-blur-md shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
             <!-- Logo -->
-            <a href="#" class="text-2xl font-bold text-primary tracking-wider">Team<span class="text-gray-300">Extreme</span></a>
+            <a href="#" class="text-2xl font-bold text-primary tracking-wider mr-6">Team<span class="text-gray-300">Extreme</span></a>
 
-            <!-- Desktop Nav Links -->
-            <nav class="hidden md:flex space-x-8">
+            <!-- Search Bar (Visible on all sizes, responsive width) -->
+            <div class="flex-1 relative flex items-center max-w-sm lg:max-w-lg mr-4">
+                <input id="searchInput" type="text" placeholder="Search games, guides, or thoughts..." 
+                       class="w-full py-2 pl-4 pr-10 bg-secondary border border-gray-700 rounded-xl text-gray-100 placeholder-gray-500 focus:outline-none focus:border-primary transition duration-150 text-sm"
+                       onkeydown="if(event.key === 'Enter') handleSearch()">
+                <button onclick="handleSearch()" class="absolute right-0 top-0 mt-2 mr-3 text-gray-500 hover:text-primary transition duration-150" aria-label="Search">
+                    <!-- Search Icon SVG -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Desktop Nav Links & Contact -->
+            <nav class="hidden md:flex items-center space-x-6">
                 <a href="#home" class="text-gray-300 hover:text-primary transition duration-150">Latest</a>
                 <a href="#content-types" class="text-gray-300 hover:text-primary transition duration-150">Categories</a>
                 <a href="#about" class="text-gray-300 hover:text-primary transition duration-150">About Me</a>
                 <a href="#contact" class="px-4 py-2 bg-primary text-white rounded-lg shadow-md hover:bg-red-600 transition duration-150">Contact</a>
             </nav>
 
-            <!-- Mobile Menu Button (Hamburger Icon) -->
+            <!-- Mobile Menu Button (Hamburger Icon) - Only visible when links are hidden -->
             <button class="md:hidden p-2 rounded-lg text-gray-300 hover:bg-secondary transition duration-150" aria-label="Toggle Menu">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -192,6 +210,40 @@
     <script>
         // Get the current year for the footer copyright
         document.getElementById('year').textContent = new Date().getFullYear();
+
+
+        // Utility function to display a custom feedback message (replaces alert())
+        function showFeedback(message) {
+            const feedbackBox = document.getElementById('feedback-message');
+            feedbackBox.textContent = message;
+            
+            // Show the box with transition
+            feedbackBox.classList.remove('hidden', 'opacity-0');
+            feedbackBox.classList.add('opacity-100');
+
+            setTimeout(() => {
+                // Start fade out
+                feedbackBox.classList.remove('opacity-100');
+                feedbackBox.classList.add('opacity-0');
+                
+                // Hide completely after fade out transition
+                setTimeout(() => {
+                    feedbackBox.classList.add('hidden');
+                }, 300); 
+            }, 2500);
+        }
+
+        // Placeholder function for search logic
+        function handleSearch() {
+            const searchTerm = document.getElementById('searchInput').value.trim();
+            if (searchTerm) {
+                // In a real application, this is where you would filter content or call an API.
+                showFeedback(`Simulating search for: "${searchTerm}"...`);
+                document.getElementById('searchInput').value = ''; // Clear input
+            } else {
+                showFeedback("Please enter a search term before pressing enter.");
+            }
+        }
     </script>
 </body>
 </html>
