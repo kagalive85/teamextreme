@@ -15,6 +15,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            scroll-behavior: smooth; /* Smooth scrolling for internal links */
         }
 
         /* Styling for the accent hover effect */
@@ -35,19 +36,20 @@
             </h1>
             <!-- Nav Links (Desktop) -->
             <nav class="hidden md:flex space-x-6">
-                <a href="#home" class="text-gray-300 hover:text-sky-400 transition duration-300 font-medium">Home</a>
+                <a href="#home-hero" class="text-gray-300 hover:text-sky-400 transition duration-300 font-medium">Home</a>
                 <a href="#blog" class="text-gray-300 hover:text-sky-400 transition duration-300 font-medium">Blog</a>
                 <a href="#guides" class="text-gray-300 hover:text-sky-400 transition duration-300 font-medium">Episode Guides</a>
                 <a href="#contact" class="text-gray-300 hover:text-sky-400 transition duration-300 font-medium">Contact</a>
             </nav>
+            <!-- Note: I updated the "Home" link to point to a new #home-hero ID -->
         </div>
     </header>
 
     <!-- Main Content Area -->
     <main class="flex-grow container mx-auto p-4 md:p-8">
         
-        <!-- Hero Section -->
-        <section class="text-center py-12 md:py-20">
+        <!-- Hero Section (Anchor for Home Link) -->
+        <section id="home-hero" class="text-center py-12 md:py-20">
             <h2 class="text-5xl md:text-7xl font-bold mb-4 tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-gray-50 to-sky-300">
                 The Golden Age of British Comedy
             </h2>
@@ -91,7 +93,7 @@
         </section>
 
         <!-- Featured Sitcoms Section -->
-        <section class="py-12 md:py-16">
+        <section id="featured-sitcoms" class="py-12 md:py-16">
             <h3 class="text-4xl font-bold text-center mb-10 border-b-2 border-gray-700/50 pb-4 max-w-xl mx-auto text-gray-200">
                 Sitcoms We Cover
             </h3>
@@ -149,6 +151,100 @@
 
         </section>
 
+        <!-- NEW BLOG SECTION -->
+        <section id="blog" class="py-12 md:py-20 border-t border-sky-700/50">
+            <h3 class="text-4xl font-bold text-center mb-10 border-b-2 border-sky-700/50 pb-4 max-w-xl mx-auto text-sky-300">
+                Latest from the Team Extreme Blog
+            </h3>
+            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Blog Post 1: Keeping Up Appearances -->
+                <div class="bg-gray-800 rounded-xl shadow-2xl overflow-hidden transition duration-300 hover:shadow-sky-500/20 card-link">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between text-sm text-gray-400 mb-4">
+                            <span class="text-sky-400 font-semibold">ANALYSIS</span>
+                            <span>October 2, 2025</span>
+                        </div>
+                        <h4 class="text-2xl font-bold text-gray-50 mb-3 hover:text-sky-300 transition duration-300 cursor-pointer">
+                            Hyacinth Bucket: Is She the True Villain of 90s Comedy?
+                        </h4>
+                        <p class="text-gray-400 mb-6 line-clamp-3">
+                            A deep dive into the social commentary wrapped up in the meticulously clean, floral world of Mrs. Bucket. Her quest for upward mobility defined an era...
+                        </p>
+                        <a href="#" class="text-sky-400 font-bold hover:text-sky-300 flex items-center">
+                            Read Full Article
+                            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Blog Post 2: Dad's Army -->
+                <div class="bg-gray-800 rounded-xl shadow-2xl overflow-hidden transition duration-300 hover:shadow-indigo-500/20 card-link">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between text-sm text-gray-400 mb-4">
+                            <span class="text-indigo-400 font-semibold">HISTORY</span>
+                            <span>September 28, 2025</span>
+                        </div>
+                        <h4 class="text-2xl font-bold text-gray-50 mb-3 hover:text-indigo-300 transition duration-300 cursor-pointer">
+                            The Real Home Guard: How Accurate was Dad's Army?
+                        </h4>
+                        <p class="text-gray-400 mb-6 line-clamp-3">
+                            We look at the historical records and compare Walmington-on-Sea to the actual Auxiliary Units of World War II. Does Captain Mainwaring hold up?
+                        </p>
+                        <a href="#" class="text-indigo-400 font-bold hover:text-indigo-300 flex items-center">
+                            Read Full Article
+                            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Blog Post 3: Only Fools and Horses -->
+                <div class="bg-gray-800 rounded-xl shadow-2xl overflow-hidden transition duration-300 hover:shadow-sky-500/20 card-link">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between text-sm text-gray-400 mb-4">
+                            <span class="text-sky-400 font-semibold">OPINION</span>
+                            <span>September 15, 2025</span>
+                        </div>
+                        <h4 class="text-2xl font-bold text-gray-50 mb-3 hover:text-sky-300 transition duration-300 cursor-pointer">
+                            Why the 1989 Christmas Special is the Peak of Trotter Comedy
+                        </h4>
+                        <p class="text-gray-400 mb-6 line-clamp-3">
+                            Examining the pacing, plot, and emotional weight of one of the show's most beloved seasonal entries. Was this the moment the show transcended comedy?
+                        </p>
+                        <a href="#" class="text-sky-400 font-bold hover:text-sky-300 flex items-center">
+                            Read Full Article
+                            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-full text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10 shadow-lg transition duration-300 transform hover:scale-[1.02]">
+                    View All Blog Posts
+                </a>
+            </div>
+
+        </section>
+
+
+        <!-- Episode Guides Section Placeholder (ID added for future reference) -->
+        <section id="guides" class="py-12 md:py-20 border-t border-sky-700/50">
+             <h3 class="text-4xl font-bold text-center mb-10 border-b-2 border-sky-700/50 pb-4 max-w-xl mx-auto text-indigo-300">
+                Episode Guides (Coming Soon)
+            </h3>
+            <p class="text-center text-gray-400">Content for detailed episode guides will go here. Click "Browse Guides" above!</p>
+        </section>
+
+        <!-- Contact Section Placeholder (ID added for future reference) -->
+        <section id="contact" class="py-12 md:py-20 border-t border-gray-700/50">
+             <h3 class="text-4xl font-bold text-center mb-10 border-b-2 border-gray-700/50 pb-4 max-w-xl mx-auto text-gray-200">
+                Contact Team Extreme
+            </h3>
+            <p class="text-center text-gray-400">Content for contact information or a form will go here.</p>
+        </section>
+
     </main>
 
     <!-- Footer - UPDATED COPYRIGHT AND ADDED GEMINI ACKNOWLEDGMENT -->
@@ -165,6 +261,23 @@
         // Placeholder JavaScript for future interaction or features
         document.addEventListener('DOMContentLoaded', () => {
             console.log("Team Extreme website loaded successfully!");
+            
+            // Add smooth scrolling functionality (since we are on a single page)
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+
+                    if (targetElement) {
+                        // Use scrollIntoView with smooth behavior
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
         });
     </script>
 
