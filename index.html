@@ -3,324 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team Extreme - British Comedy Archive</title>
+    <title>Team Extreme Web Hub</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* Define the primary font and background for the dark theme */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
         body {
             font-family: 'Inter', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+            background-color: #0d1117; /* Very dark background (GitHub dark mode shade) */
+            color: #c9d1d9; /* Light gray text for contrast */
         }
-        .text-shadow {
-            text-shadow: 0 0 10px rgba(59, 130, 246, 0.5); /* Blue glow */
+        .text-accent {
+            color: #3b82f6; /* A vibrant blue for accents */
         }
-        .card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        /* Custom scrollbar for a sleek look */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px -5px rgba(52, 211, 153, 0.2), 0 5px 10px -5px rgba(52, 211, 153, 0.1);
-        }
-        .accordion-header {
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease-in-out;
-        }
-        .accordion-content.active {
-            /* Set a sufficiently large height to allow content expansion */
-            max-height: 500px;
+        ::-webkit-scrollbar-thumb {
+            background-color: #1f2a37;
+            border-radius: 10px;
         }
     </style>
 </head>
-<body class="bg-gray-900 text-gray-100 antialiased">
-
-    <!-- Header and Navigation -->
-    <header class="bg-gray-800 shadow-lg p-4 md:p-6 sticky top-0 z-10 border-b border-sky-700/50">
-        <div class="container mx-auto flex justify-between items-center px-4">
-            <h1 class="text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-indigo-500 text-shadow">
+<body>
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-50 bg-gray-900/90 backdrop-blur-sm shadow-lg border-b border-blue-900/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <!-- Logo/Title -->
+            <a href="#" class="text-3xl font-extrabold tracking-tight text-accent transition duration-300 hover:text-sky-400">
                 Team Extreme
-            </h1>
-            <nav class="hidden md:flex space-x-8">
-                <a href="#featured" class="text-gray-300 hover:text-sky-400 transition duration-300 font-medium">Featured</a>
-                <a href="#blog" class="text-gray-300 hover:text-sky-400 transition duration-300 font-medium">Blog</a>
-                <a href="#guides" class="text-gray-300 hover:text-sky-400 transition duration-300 font-medium">Guides</a>
-                <a href="#contact" class="text-gray-300 hover:text-sky-400 transition duration-300 font-medium">Contact</a>
+            </a>
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-6 text-lg font-medium">
+                <a href="#hub" class="text-gray-300 hover:text-sky-400 transition duration-150">Hub</a>
+                <a href="#projects" class="text-gray-300 hover:text-sky-400 transition duration-150">Projects</a>
+                <a href="#about" class="text-gray-300 hover:text-sky-400 transition duration-150">About</a>
+                <button id="mobile-menu-toggle-desktop" class="md:hidden text-gray-300 hover:text-sky-400 focus:outline-none">
+                    <!-- Hamburger Icon Placeholder -->
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
             </nav>
-            <button id="mobile-menu-button" class="md:hidden text-gray-300 hover:text-sky-400">
-                <!-- Hamburger Icon (Menu) -->
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-toggle" class="md:hidden text-gray-300 hover:text-sky-400 focus:outline-none">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
         </div>
-        <!-- Mobile Menu (Hidden by default) -->
-        <nav id="mobile-menu" class="md:hidden pt-2 hidden">
-            <div class="flex flex-col space-y-2 px-4">
-                <a href="#featured" class="block text-gray-300 hover:bg-gray-700 p-2 rounded-lg transition duration-300">Featured</a>
-                <a href="#blog" class="block text-gray-300 hover:bg-gray-700 p-2 rounded-lg transition duration-300">Blog</a>
-                <a href="#guides" class="block text-gray-300 hover:bg-gray-700 p-2 rounded-lg transition duration-300">Guides</a>
-                <a href="#contact" class="block text-gray-300 hover:bg-gray-700 p-2 rounded-lg transition duration-300">Contact</a>
-            </div>
-        </nav>
     </header>
 
-    <!-- Main Content -->
-    <main class="flex-grow">
+    <!-- Mobile Menu (Hidden by default) -->
+    <div id="mobile-menu" class="hidden md:hidden bg-gray-800 absolute w-full z-40 shadow-xl">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col items-center">
+            <a href="#hub" class="block px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white rounded-md w-full text-center">Hub</a>
+            <a href="#projects" class="block px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white rounded-md w-full text-center">Projects</a>
+            <a href="#about" class="block px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white rounded-md w-full text-center">About</a>
+        </div>
+    </div>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
         <!-- Hero Section -->
-        <section class="relative h-96 flex items-center justify-center text-center bg-cover bg-center" style="background-image: url('https://placehold.co/1920x400/1E3A8A/ffffff?text=The+Best+of+British+Sitcoms');">
-            <div class="absolute inset-0 bg-gray-900 opacity-70"></div>
-            <div class="relative z-10 p-6">
-                <h2 class="text-4xl md:text-7xl font-extrabold text-white mb-4 text-shadow">
-                    The Ultimate British Comedy Archive
-                </h2>
-                <p class="text-xl md:text-2xl text-sky-200">
-                    From Hyacinth's coffee mornings to the antics on the buses, explore decades of classic UK TV.
-                </p>
-            </div>
-        </section>
-
-        <!-- Featured Sitcoms Section -->
-        <section id="featured" class="container mx-auto p-8 md:p-12">
-            <h3 class="text-4xl font-bold text-center mb-10 text-sky-400">Featured Classics</h3>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Card 1: Keeping Up Appearances -->
-                <div class="card bg-gray-800 p-6 rounded-xl shadow-2xl border border-gray-700">
-                    <h4 class="text-2xl font-semibold mb-3 text-green-400">Keeping Up Appearances (1990-1995)</h4>
-                    <p class="text-gray-400 mb-4">The social-climbing snob Hyacinth Bucket (pronounced 'Bouquet') and her long-suffering husband, Richard.</p>
-                    <a href="#guide-kua-detail" class="text-green-400 hover:text-green-300 font-semibold flex items-center">
-                        View Episode Guide 
-                        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </a>
-                </div>
-                <!-- Card 2: Last of the Summer Wine -->
-                <div class="card bg-gray-800 p-6 rounded-xl shadow-2xl border border-gray-700">
-                    <h4 class="text-2xl font-semibold mb-3 text-red-400">Last of the Summer Wine (1973-2010)</h4>
-                    <p class="text-gray-400 mb-4">Three aged eccentrics and their quirky escapades in the picturesque Yorkshire countryside.</p>
-                    <a href="#guides" class="text-red-400 hover:text-red-300 font-semibold flex items-center">
-                        View Episode Guide 
-                        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </a>
-                </div>
-                <!-- Card 3: Fawlty Towers -->
-                <div class="card bg-gray-800 p-6 rounded-xl shadow-2xl border border-gray-700">
-                    <h4 class="text-2xl font-semibold mb-3 text-yellow-400">Fawlty Towers (1975, 1979)</h4>
-                    <p class="text-gray-400 mb-4">The manic manager, Basil Fawlty, struggles to run a hotel while dealing with demanding guests and his staff.</p>
-                    <a href="#guides" class="text-yellow-400 hover:text-yellow-300 font-semibold flex items-center">
-                        View Episode Guide 
-                        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Episode Guides Landing Section -->
-        <section id="guides" class="container mx-auto p-8 md:p-12">
-            <h3 class="text-4xl font-bold text-center mb-10 text-sky-400">All Episode Guides</h3>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                
-                <!-- Guide Card 1: Keeping Up Appearances -->
-                <div class="card bg-gray-800 p-4 rounded-xl shadow-lg border-l-4 border-green-500">
-                    <h4 class="text-xl font-semibold text-gray-50 mb-2">Keeping Up Appearances</h4>
-                    <p class="text-gray-400 text-sm mb-3">5 Series | 44 Episodes</p>
-                    <a href="#guide-kua-detail" class="text-green-400 hover:text-green-300 font-medium">Explore Seasons</a>
-                </div>
-
-                <!-- Guide Card 2: Last of the Summer Wine -->
-                <div class="card bg-gray-800 p-4 rounded-xl shadow-lg border-l-4 border-red-500">
-                    <h4 class="text-xl font-semibold text-gray-50 mb-2">Last of the Summer Wine</h4>
-                    <p class="text-gray-400 text-sm mb-3">31 Series | 295 Episodes</p>
-                    <a href="#" class="text-red-400 hover:text-red-300 font-medium">Explore Seasons</a>
-                </div>
-
-                <!-- Guide Card 3: Fawlty Towers -->
-                <div class="card bg-gray-800 p-4 rounded-xl shadow-lg border-l-4 border-yellow-500">
-                    <h4 class="text-xl font-semibold text-gray-50 mb-2">Fawlty Towers</h4>
-                    <p class="text-gray-400 text-sm mb-3">2 Series | 12 Episodes</p>
-                    <a href="#" class="text-yellow-400 hover:text-yellow-300 font-medium">Explore Seasons</a>
-                </div>
-
-                <!-- Guide Card 4: On the Buses -->
-                <div class="card bg-gray-800 p-4 rounded-xl shadow-lg border-l-4 border-indigo-500">
-                    <h4 class="text-xl font-semibold text-gray-50 mb-2">On the Buses</h4>
-                    <p class="text-gray-400 text-sm mb-3">7 Series | 74 Episodes</p>
-                    <a href="#" class="text-indigo-400 hover:text-indigo-300 font-medium">Explore Seasons</a>
-                </div>
-
-                <!-- Guide Card 5: Porridge -->
-                <div class="card bg-gray-800 p-4 rounded-xl shadow-lg border-l-4 border-pink-500">
-                    <h4 class="text-xl font-semibold text-gray-50 mb-2">Porridge</h4>
-                    <p class="text-gray-400 text-sm mb-3">3 Series | 21 Episodes</p>
-                    <a href="#" class="text-pink-400 hover:text-pink-300 font-medium">Explore Seasons</a>
-                </div>
-
-                <!-- Guide Card 6: Only Fools and Horses -->
-                <div class="card bg-gray-800 p-4 rounded-xl shadow-lg border-l-4 border-orange-500">
-                    <h4 class="text-xl font-semibold text-gray-50 mb-2">Only Fools and Horses</h4>
-                    <p class="text-gray-400 text-sm mb-3">7 Series | 64 Episodes</p>
-                    <a href="#" class="text-orange-400 hover:text-orange-300 font-medium">Explore Seasons</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Keeping Up Appearances Detail Section (Toggleable) -->
-        <section id="guide-kua-detail" class="container mx-auto p-8 md:p-12">
-            <h3 class="text-3xl font-bold text-center mb-8 text-green-400">Keeping Up Appearances: Season Index</h3>
-            
-            <div class="max-w-4xl mx-auto space-y-4">
-                
-                <!-- Accordion Item 1: Series 1 (Now a Link) -->
-                <div class="bg-gray-800 rounded-xl shadow-lg border border-gray-700">
-                    <a href="series1_kua.html" class="accordion-header flex justify-between items-center p-4 bg-indigo-700/30 hover:bg-indigo-700/50 rounded-t-xl transition duration-300">
-                        <span class="text-xl font-semibold text-sky-200">Series 1 (1990) - 6 Episodes (Custom Order)</span>
-                        <svg class="w-6 h-6 transform rotate-90 text-sky-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                    </a>
-                    <!-- Empty content placeholder for the link -->
-                    <div class="accordion-content"></div>
-                </div>
-
-                <!-- Accordion Item 2: Series 2 -->
-                <div class="bg-gray-800 rounded-xl shadow-lg border border-gray-700">
-                    <div class="accordion-header flex justify-between items-center p-4">
-                        <span class="text-xl font-semibold text-gray-50">Series 2 (1991) - 10 Episodes</span>
-                        <svg class="w-6 h-6 transform transition duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </div>
-                    <div class="accordion-content p-4 text-gray-300 border-t border-gray-700">
-                        <p>Detailed guide for Series 2 coming soon!</p>
-                    </div>
-                </div>
-
-                <!-- Accordion Item 5: Series 5 (Placeholder Example) -->
-                <div class="bg-gray-800 rounded-xl shadow-lg border border-gray-700">
-                    <div class="accordion-header flex justify-between items-center p-4">
-                        <span class="text-xl font-semibold text-gray-50">Series 5 (1995) - 10 Episodes</span>
-                        <svg class="w-6 h-6 transform transition duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </div>
-                    <div class="accordion-content p-4 text-gray-300 border-t border-gray-700">
-                        <p>Details for the final series are still being compiled for your review.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Blog Section -->
-        <section id="blog" class="container mx-auto p-8 md:p-12">
-            <h3 class="text-4xl font-bold text-center mb-10 text-sky-400">Team Extreme Blog</h3>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                
-                <!-- Blog Post 1 -->
-                <div class="card bg-gray-800 p-6 rounded-xl shadow-xl border border-gray-700">
-                    <span class="text-sm text-indigo-400 font-medium block mb-2">ANALYSIS | SEP 20, 2025</span>
-                    <h4 class="text-2xl font-semibold text-gray-50 mb-3">Hyacinth Bucket: Social Climber or Misunderstood Visionary?</h4>
-                    <p class="text-gray-400 mb-4 line-clamp-3">A deep dive into the psychology of Hyacinth and whether her quest for refinement was a reflection of 90s British class aspiration...</p>
-                    <a href="#" class="text-indigo-400 hover:text-indigo-300 font-semibold">Read More &rarr;</a>
-                </div>
-
-                <!-- Blog Post 2 -->
-                <div class="card bg-gray-800 p-6 rounded-xl shadow-xl border border-gray-700">
-                    <span class="text-sm text-indigo-400 font-medium block mb-2">RETROSPECTIVE | SEP 15, 2025</span>
-                    <h4 class="text-2xl font-semibold text-gray-50 mb-3">The Magic of the Moor: Why 'Last of the Summer Wine' Never Ages</h4>
-                    <p class="text-gray-400 mb-4 line-clamp-3">Examining the core themes of friendship and perpetual childhood that made this the longest-running sitcom in history...</p>
-                    <a href="#" class="text-indigo-400 hover:text-indigo-300 font-semibold">Read More &rarr;</a>
-                </div>
-
-                <!-- Blog Post 3 -->
-                <div class="card bg-gray-800 p-6 rounded-xl shadow-xl border border-gray-700">
-                    <span class="text-sm text-indigo-400 font-medium block mb-2">TRIVIA | SEP 10, 2025</span>
-                    <h4 class="text-2xl font-semibold text-gray-50 mb-3">10 Facts You Didn't Know About 'Fawlty Towers'</h4>
-                    <p class="text-gray-400 mb-4 line-clamp-3">From the real-life hotel that inspired John Cleese to the infamous German episode, test your sitcom knowledge...</p>
-                    <a href="#" class="text-indigo-400 hover:text-indigo-300 font-semibold">Read More &rarr;</a>
-                </div>
-            </div>
-            
-            <div class="text-center mt-10">
-                <a href="#" class="inline-block px-8 py-3 border border-transparent text-base font-medium rounded-full text-white bg-sky-600 hover:bg-sky-700 md:py-4 md:text-lg md:px-10 shadow-lg transition duration-300">
-                    View All Blog Posts
-                </a>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="container mx-auto p-8 md:p-12 text-center">
-            <h3 class="text-4xl font-bold text-center mb-6 text-sky-400">Get in Touch</h3>
-            <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-8">
-                Have a favorite episode? Suggest a new guide or submit your own blog post!
+        <section id="hero" class="text-center mb-16 pt-8">
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-4 leading-tight text-white">
+                Welcome to the <span class="text-accent">Extreme Hub</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
+                The centralized command center for all things related to Team Extreme. Whether it's code, creativity, or conquest, you'll find it here.
             </p>
-            
-            <form class="max-w-xl mx-auto bg-gray-800 p-8 rounded-xl shadow-2xl border border-gray-700">
-                <div class="space-y-4">
-                    <input type="text" placeholder="Your Name" class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 text-white placeholder-gray-400 focus:ring-sky-500 focus:border-sky-500" required>
-                    <input type="email" placeholder="Your Email" class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 text-white placeholder-gray-400 focus:ring-sky-500 focus:border-sky-500" required>
-                    <textarea rows="4" placeholder="Your Message or Suggestion" class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 text-white placeholder-gray-400 focus:ring-sky-500 focus:border-sky-500" required></textarea>
-                </div>
-                <button type="submit" class="mt-6 w-full px-4 py-3 bg-green-500 text-gray-900 font-bold rounded-full hover:bg-green-400 transition duration-300 transform hover:scale-[1.02] shadow-lg">
-                    Send Message
-                </button>
-            </form>
         </section>
+
+        <!-- Content Hub (Main Dashboard) -->
+        <section id="hub" class="mb-16">
+            <h2 class="text-4xl font-bold mb-8 border-l-4 border-accent pl-4">The Content Matrix</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- Card 1: Latest Project -->
+                <div class="bg-gray-800 rounded-xl shadow-2xl p-6 transition duration-300 ease-in-out transform hover:scale-[1.02] hover:shadow-sky-500/30 border border-gray-700">
+                    <div class="text-accent text-3xl mb-3">🛠️</div>
+                    <h3 class="text-2xl font-semibold mb-3 text-white">Latest Project: Project Nebula</h3>
+                    <p class="text-gray-400 mb-4">
+                        A full-stack application leveraging modern technologies to track space debris. Check out the latest commit on GitHub.
+                    </p>
+                    <a href="#" class="inline-block px-4 py-2 text-sm font-medium rounded-lg text-white bg-accent hover:bg-sky-600 transition duration-200 shadow-md">
+                        View Repository
+                    </a>
+                </div>
+
+                <!-- Card 2: Recent Blog Post -->
+                <div class="bg-gray-800 rounded-xl shadow-2xl p-6 transition duration-300 ease-in-out transform hover:scale-[1.02] hover:shadow-sky-500/30 border border-gray-700">
+                    <div class="text-accent text-3xl mb-3">✍️</div>
+                    <h3 class="text-2xl font-semibold mb-3 text-white">New Post: Mastering Netlify Deployments</h3>
+                    <p class="text-gray-400 mb-4">
+                        A detailed guide on setting up continuous integration and deployment hooks using Netlify and GitHub.
+                    </p>
+                    <a href="#" class="inline-block px-4 py-2 text-sm font-medium rounded-lg text-white bg-accent hover:bg-sky-600 transition duration-200 shadow-md">
+                        Read Article
+                    </a>
+                </div>
+
+                <!-- Card 3: Key Resources & Links -->
+                <div class="bg-gray-800 rounded-xl shadow-2xl p-6 transition duration-300 ease-in-out transform hover:scale-[1.02] hover:shadow-sky-500/30 border border-gray-700">
+                    <div class="text-accent text-3xl mb-3">🔗</div>
+                    <h3 class="text-2xl font-semibold mb-3 text-white">Quick Links</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>
+                            <a href="#" class="hover:text-sky-400 transition duration-150 flex items-center">
+                                <span class="mr-2">&rarr;</span> Netlify Dashboard
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="hover:text-sky-400 transition duration-150 flex items-center">
+                                <span class="mr-2">&rarr;</span> Team GitHub Org
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="hover:text-sky-400 transition duration-150 flex items-center">
+                                <span class="mr-2">&rarr;</span> Project Documentation
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="mb-16">
+            <h2 class="text-4xl font-bold mb-8 border-l-4 border-accent pl-4">About Team Extreme</h2>
+            <div class="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
+                <p class="text-gray-300 leading-relaxed">
+                    Team Extreme is dedicated to pushing boundaries in technology and creativity. Founded on the principle of continuous learning and extreme execution, this hub serves as the public face and internal log for our various ventures—from open-source code contributions to complex hardware integrations. Our mission is to build, document, and share our journey with the wider community.
+                </p>
+                <div class="mt-4 flex flex-wrap gap-4">
+                    <span class="text-sm font-medium px-3 py-1 bg-blue-900/40 text-sky-300 rounded-full">#Coding</span>
+                    <span class="text-sm font-medium px-3 py-1 bg-blue-900/40 text-sky-300 rounded-full">#Design</span>
+                    <span class="text-sm font-medium px-3 py-1 bg-blue-900/40 text-sky-300 rounded-full">#Netlify</span>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <!-- Footer -->
-    <footer class="mt-auto bg-gray-800 p-6 border-t border-sky-700/50">
-        <div class="container mx-auto text-center text-gray-400 text-sm">
-            <p>&copy; 2025 Team Extreme. All rights reserved.</p>
-            <p class="mt-2 text-sky-400 font-medium">Designed with the help of Google Gemini!</p>
+    <footer class="bg-gray-900 border-t border-blue-900/50 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-gray-500 text-sm">
+            &copy; 2025 Team Extreme. Powered by Netlify and GitHub.
         </div>
     </footer>
 
-    <!-- JavaScript for Mobile Menu and Smooth Scrolling -->
     <script>
-        // Toggle Mobile Menu
-        document.getElementById('mobile-menu-button').addEventListener('click', function() {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
-        });
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
 
-        // Smooth Scrolling for internal links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                // Check if the link is a navigation link and not an accordion header
-                if (this.getAttribute('href') !== '#guide-kua-detail') {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href').substring(1);
-                    const targetElement = document.getElementById(targetId);
+            // Function to toggle the mobile menu visibility
+            const toggleMenu = () => {
+                mobileMenu.classList.toggle('hidden');
+            };
 
-                    if (targetElement) {
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                    }
-                }
-            });
-        });
+            mobileMenuToggle.addEventListener('click', toggleMenu);
 
-        // Accordion functionality (for non-linked headers)
-        document.querySelectorAll('.accordion-header').forEach(header => {
-            // Only apply toggle logic to headers that aren't navigation links (like Series 1)
-            if (!header.parentElement.querySelector('.accordion-content').querySelector('a')) {
-                header.addEventListener('click', function() {
-                    const content = this.nextElementSibling;
-                    const icon = this.querySelector('svg');
-
-                    // Close all other open accordions
-                    document.querySelectorAll('.accordion-content.active').forEach(openContent => {
-                        if (openContent !== content) {
-                            openContent.classList.remove('active');
-                            openContent.previousElementSibling.querySelector('svg').classList.remove('rotate-180');
+            // Close menu when a link is clicked (for single-page navigation)
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    // Slight delay to allow navigation before closing
+                    setTimeout(() => {
+                        if (!mobileMenu.classList.contains('hidden')) {
+                            toggleMenu();
                         }
-                    });
-
-                    // Toggle current accordion
-                    content.classList.toggle('active');
-                    icon.classList.toggle('rotate-180');
+                    }, 100);
                 });
-            }
+            });
         });
     </script>
 </body>
