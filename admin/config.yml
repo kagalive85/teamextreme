@@ -6,7 +6,7 @@ backend:
   name: github 
   branch: main # Change this if your main branch is named differently (e.g., master)
   # !!! IMPORTANT: Replace these placeholders with your GitHub details !!!
-  repo: kagalive85/teamextreme 
+  repo: kagalive85/teamextreme
   auth_scope: repo # Required for the GitHub backend
 
 # Media Configuration (Where images/files go)
