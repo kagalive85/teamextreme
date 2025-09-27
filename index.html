@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Extreme | Thoughts, TV, and PC Gaming</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind for Inter font and custom colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary': '#f87171', // Red-400, for a personal/passion feel
+                        'secondary': '#1e293b', // Slate-800
+                        'dark-bg': '#0f172a', // Slate-900
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Apply Inter font globally and ensure smooth scrolling for in-page navigation */
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        /* Custom card style for subtle interactivity */
+        .content-card {
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+            border-color: #f87171; /* Highlight on hover */
+        }
+    </style>
+</head>
+<body class="bg-dark-bg text-gray-100 min-h-screen">
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-50 bg-dark-bg/95 backdrop-blur-md shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="text-2xl font-bold text-primary tracking-wider">Team<span class="text-gray-300">Extreme</span></a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="#home" class="text-gray-300 hover:text-primary transition duration-150">Latest</a>
+                <a href="#content-types" class="text-gray-300 hover:text-primary transition duration-150">Categories</a>
+                <a href="#about" class="text-gray-300 hover:text-primary transition duration-150">About Me</a>
+                <a href="#contact" class="px-4 py-2 bg-primary text-white rounded-lg shadow-md hover:bg-red-600 transition duration-150">Contact</a>
+            </nav>
+
+            <!-- Mobile Menu Button (Hamburger Icon) -->
+            <button class="md:hidden p-2 rounded-lg text-gray-300 hover:bg-secondary transition duration-150" aria-label="Toggle Menu">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto">
+
+        <!-- 1. Hero Section: Introduction and Latest Post Link -->
+        <section id="home" class="py-20 md:py-32 px-4 text-center">
+            <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-4">
+                Welcome to <span class="text-primary block md:inline">Team Extreme.</span>
+            </h1>
+            <p class="text-xl text-gray-400 mb-10 max-w-3xl mx-auto">
+                My personal hub for PC game reviews, detailed TV show guides, and unfiltered thoughts on technology and culture. Dive into the analysis.
+            </p>
+            <div class="space-x-4">
+                <a href="#" class="inline-block px-8 py-3 bg-primary text-white text-lg font-semibold rounded-xl shadow-2xl shadow-primary/50 hover:bg-red-600 transition duration-300 transform hover:scale-105">
+                    Read Latest Post
+                </a>
+                <a href="#content-types" class="inline-block px-8 py-3 text-lg font-semibold border-2 border-gray-500 text-gray-300 rounded-xl hover:bg-gray-700 transition duration-300">
+                    Browse Categories
+                </a>
+            </div>
+        </section>
+
+        <!-- Separator with Placeholder for Content Spotlight -->
+        <div class="px-4 pb-16">
+            <div class="h-48 bg-secondary rounded-3xl flex items-center justify-center border border-gray-700 shadow-xl">
+                <p class="text-gray-500 text-lg">Spotlight: Latest Game Review or TV Guide Thumbnail</p>
+            </div>
+        </div>
+
+        <!-- 2. Content Types Section -->
+        <section id="content-types" class="py-16 md:py-24 px-4 bg-secondary rounded-t-[3rem]">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-4">Content Categories</h2>
+            <p class="text-lg text-gray-400 text-center mb-16 max-w-2xl mx-auto">
+                No matter your interest—gaming, television, or tech—you'll find in-depth commentary here.
+            </p>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Content Card 1: PC Game Reviews -->
+                <div class="content-card bg-slate-800 p-8 rounded-2xl border-2 border-transparent hover:border-primary">
+                    <div class="text-primary mb-4">
+                        <!-- Gamepad Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2h-4C7.79 2 6 3.79 6 6v4H4c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h2v4c0 2.21 1.79 4 4 4h4c2.21 0 4-1.79 4-4v-4h2c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2h-2V6c0-2.21-1.79-4-4-4z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-3 text-white">PC Game Reviews</h3>
+                    <p class="text-gray-400">Deep dives into the latest AAA titles and hidden indie gems. Honest critiques on gameplay, story, and performance.</p>
+                </div>
+
+                <!-- Content Card 2: TV Guides & Analysis -->
+                <div class="content-card bg-slate-800 p-8 rounded-2xl border-2 border-transparent hover:border-primary">
+                    <div class="text-primary mb-4">
+                        <!-- TV/Screen Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="7" width="20" height="15" rx="2" ry="2" />
+                            <polyline points="17 2 12 7 7 2" />
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-3 text-white">TV Guides & Analysis</h3>
+                    <p class="text-gray-400">Episode breakdowns, character deep dives, and speculation for your favorite shows. Never miss a detail.</p>
+                </div>
+
+                <!-- Content Card 3: Personal Thoughts & Tech Blog -->
+                <div class="content-card bg-slate-800 p-8 rounded-2xl border-2 border-transparent hover:border-primary">
+                    <div class="text-primary mb-4">
+                        <!-- Lightbulb/Idea Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-3 text-white">Thoughts & Technology</h3>
+                    <p class="text-gray-400">Unfiltered opinions on current events, technology trends, personal projects, and the occasional rant.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. About Section (Author Introduction) -->
+        <section id="about" class="py-16 md:py-24 px-4">
+            <div class="md:grid md:grid-cols-2 md:gap-12 items-center">
+                <div class="mb-8 md:mb-0">
+                    <h2 class="text-4xl font-bold mb-4">About Me (The Lens)</h2>
+                    <p class="text-lg text-gray-400 mb-6">
+                        Hi, I'm the curator behind **Team Extreme**! This space is my digital sandbox where I share my passions—from dissecting complex TV plotlines to figuring out the best build for a new RPG. I write for fellow enthusiasts who love detail and a good conversation.
+                    </p>
+                    <p class="text-lg text-gray-400 mb-6">
+                        My goal is to provide honest, in-depth content that you can't find everywhere else. Thanks for reading!
+                    </p>
+                    <a href="mailto:author@digitallens.com" class="inline-block px-6 py-3 border border-primary text-primary font-semibold rounded-lg hover:bg-primary hover:text-white transition duration-200">
+                        Say Hello
+                    </a>
+                </div>
+                <div class="h-64 bg-secondary rounded-2xl border border-gray-700 flex items-center justify-center">
+                    <p class="text-gray-500">Placeholder for Author Photo / Personal Avatar</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 4. Contact/Follow CTA -->
+        <section id="contact" class="py-16 px-4 bg-primary/10 rounded-3xl mb-12">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-3">Don't Miss the Next Post.</h2>
+                <p class="text-xl text-gray-300 mb-8">
+                    Follow along for regular updates on games, shows, and technology.
+                </p>
+                <a href="#" class="inline-block px-10 py-4 bg-primary text-white text-xl font-bold rounded-xl shadow-2xl shadow-primary/50 hover:bg-red-600 transition duration-300 transform hover:scale-105">
+                    Dive into the Content
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-secondary/50 border-t border-gray-800 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-400">
+            <nav class="space-x-6 mb-4">
+                <a href="#" class="hover:text-primary transition duration-150">Archives</a>
+                <a href="#" class="hover:text-primary transition duration-150">Contact</a>
+                <a href="#" class="hover:text-primary transition duration-150">Privacy</a>
+            </nav>
+            <p>&copy; <span id="year"></span> Team Extreme. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Get the current year for the footer copyright
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
