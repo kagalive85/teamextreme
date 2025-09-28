@@ -1,23 +1,27 @@
 
 import React from 'react';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import UploadSection from './components/UploadSection';
-import Footer from './components/Footer';
+import GearIcon from './components/GearIcon';
 
-const App: React.FC = () => {
+function App() {
   return (
-    <div className="min-h-screen flex flex-col bg-slate-900 font-sans antialiased">
-      <Header />
-      <main className="flex-grow flex flex-col items-center justify-center p-4 md:p-8">
-        <div className="container mx-auto max-w-5xl space-y-16 md:space-y-24">
-          <Hero />
-          <UploadSection />
-        </div>
-      </main>
-      <Footer />
-    </div>
+    <main className="flex flex-col items-center justify-center w-screen h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-slate-800 to-indigo-900 text-white">
+      <div className="flex flex-col items-center justify-center text-center p-6 space-y-6">
+        <GearIcon className="w-20 h-20 md:w-28 md:h-28 text-indigo-400/80 [animation:spin_12s_linear_infinite]" />
+        
+        <h1 className="text-4xl font-extrabold tracking-tight md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-indigo-300">
+          Pardon Our Dust
+        </h1>
+        
+        <p className="max-w-md text-lg text-slate-400 md:text-xl">
+          Our new website is currently under construction. We're working hard to bring you a better experience. We'll be back online soon!
+        </p>
+      </div>
+      
+      <footer className="absolute bottom-5 text-sm text-slate-600">
+        © {new Date().getFullYear()} Our Company. All Rights Reserved.
+      </footer>
+    </main>
   );
-};
+}
 
 export default App;
