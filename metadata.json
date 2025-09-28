@@ -1,5 +1,5 @@
 {
-  "name": "Under Construction Page",
-  "description": "A visually appealing 'under construction' page for a website that is not yet ready. It features a clean, modern design with a spinning gear icon and a dark, gradient background.",
+  "name": "Media Uploader",
+  "description": "A visually appealing front-end application to upload and preview images and videos. It features a drag-and-drop interface and media previews, all with a modern, dark theme.",
   "requestFramePermissions": []
 }
